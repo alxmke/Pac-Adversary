@@ -278,9 +278,8 @@ def betterEvaluationFunction(currentGameState):
         return float("-inf")
 
     food_dists = [util.manhattanDistance(pos, food_pos) for food_pos in food.asList()]
-
     if not food_dists:
-        food_dists = [1]
+        food_dists = [0]
 
     capd = [util.manhattanDistance(pos, cap_pos) for cap_pos in currentGameState.getCapsules()]
     if not capd:
@@ -288,10 +287,10 @@ def betterEvaluationFunction(currentGameState):
     else:
         capd = min(capd)
 
-    return ( 1.0/min(food_dists)
+    return ( 1.25/(0.01+min(food_dists))
            - 2.0*currentGameState.getNumFood()
            + 0.25/(1+capd)
-           + 0.5/(1+len(currentGameState.getCapsules()))
+           + 0.5/(0.1+len(currentGameState.getCapsules()))
            + currentGameState.getScore()
            + 0.0)
 
