@@ -273,9 +273,9 @@ def betterEvaluationFunction(currentGameState):
     #dont go into deadends if you're getting tailed by a ghost, if possible to implement
 
     # better if pacman gets spooked at 2 in this iteration, thus far
-    too_spooky_ds = [util.manhattanDistance(ghost.getPosition(), pos) for ghost in ghostStates if ghost.scaredTimer == 0] + [4]
-    too_spooky_d = min(too_spooky_ds)
-    too_spooky_d = too_spooky_d if too_spooky_d < 4 else float("inf")
+    too_spooky = any([True if util.manhattanDistance(ghost.getPosition(), pos) <= 2 and ghost.scaredTimer == 0 else False for ghost in ghostStates])
+    if too_spooky:
+        return float("-inf")
 
     food_dists = [util.manhattanDistance(pos, food_pos) for food_pos in food.asList()]
 
@@ -283,8 +283,7 @@ def betterEvaluationFunction(currentGameState):
         food_dists = [1]
 
     return ( 2.0/min(food_dists)
-           - 1.0*currentGameState.getNumFood()
-           - 1.0/too_spooky_d
+           - 2.0*currentGameState.getNumFood()
            + currentGameState.getScore() )
 
 # Abbreviation
