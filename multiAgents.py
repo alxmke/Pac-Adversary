@@ -293,7 +293,7 @@ def betterEvaluationFunction(currentGameState):
            + 0.25/(1+capd)
            + 0.5/(1+len(currentGameState.getCapsules()))
            + currentGameState.getScore()
-           + 0)
+           + 0.0)
 
 # Abbreviation
 better = betterEvaluationFunction
