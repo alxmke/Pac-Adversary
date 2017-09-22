@@ -290,7 +290,7 @@ def betterEvaluationFunction(currentGameState):
 
     return ( 1.0/min(food_dists)
            - 2.0*currentGameState.getNumFood()
-           #+ 1.0/(1+capd)
+           + 0.25/(1+capd)
            + 0.5/(1+len(currentGameState.getCapsules()))
            + currentGameState.getScore()
            + 0)
