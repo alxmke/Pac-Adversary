@@ -273,7 +273,7 @@ def betterEvaluationFunction(currentGameState):
     #dont go into deadends if you're getting tailed by a ghost, if possible to implement
 
     # better if pacman gets spooked at 2 in this iteration, thus far
-    too_spooky = any([True if util.manhattanDistance(ghost.getPosition(), pos) <= 2 and ghost.scaredTimer == 0 else False for ghost in ghostStates])
+    too_spooky = any([True if util.manhattanDistance(ghost.getPosition(), pos) <= 3 and ghost.scaredTimer == 0 else False for ghost in ghostStates])
     if too_spooky:
         return float("-inf")
 
@@ -282,9 +282,11 @@ def betterEvaluationFunction(currentGameState):
     if not food_dists:
         food_dists = [1]
 
-    return ( 2.0/min(food_dists)
+    return ( 1/min(food_dists)
            - 2.0*currentGameState.getNumFood()
-           + currentGameState.getScore() )
+           #- 100 if )
+           + currentGameState.getScore()
+           + 0)
 
 # Abbreviation
 better = betterEvaluationFunction
